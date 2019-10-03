@@ -55,14 +55,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             imageViewChanger();
             for (int i = 0; i < spil.getBrugteBogstaver().size(); i++) {
                 currentWord = currentWord + "  " + spil.getBrugteBogstaver().get(i);
-                if (!spil.erSidsteBogstavKorrekt() && spil.getAntalForkerteBogstaver() < 6){
 
-                    Toast.makeText(this,"Du har gættet forkert " + (spil.getAntalForkerteBogstaver())+ " gange",Toast.LENGTH_SHORT).show();
-                }
-                else if (spil.erSidsteBogstavKorrekt() && !spil.erSpilletVundet()){
-                    Toast.makeText(this,"Du gættede rigtigt",Toast.LENGTH_SHORT).show();
-                }
+            }
+            if (!spil.erSidsteBogstavKorrekt() && spil.getAntalForkerteBogstaver() < 6){
 
+                Toast.makeText(this,"Du har gættet forkert " + (spil.getAntalForkerteBogstaver())+ " gang(e)",Toast.LENGTH_SHORT).show();
+            }
+            else if (spil.erSidsteBogstavKorrekt() && !spil.erSpilletVundet()){
+                Toast.makeText(this,"Du gættede rigtigt",Toast.LENGTH_SHORT).show();
             }
              if (spil.erSpilletVundet()) {
                  Toast.makeText(this, "Du vandt", Toast.LENGTH_SHORT).show();
