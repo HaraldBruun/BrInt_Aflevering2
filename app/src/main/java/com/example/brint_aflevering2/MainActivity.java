@@ -62,20 +62,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(this,"Du har gættet forkert " + (spil.getAntalForkerteBogstaver())+ " gang(e)",Toast.LENGTH_SHORT).show();
             }
             else if (spil.erSidsteBogstavKorrekt() && !spil.erSpilletVundet()){
-                Toast.makeText(this,"Du gættede rigtigt",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"Du gættede rigtigt: '" + gæt.getText().toString().toUpperCase() + "' indgår i ordet",Toast.LENGTH_SHORT).show();
             }
-             if (spil.erSpilletVundet()) {
+            else if (spil.erSpilletVundet()) {
                  Toast.makeText(this, "Du vandt", Toast.LENGTH_SHORT).show();
                  wincounter++;
                  knap3.setVisibility(View.VISIBLE);
                  textViewW.setText("W = " + wincounter);
              }
-             else if (spil.erSpilletTabt()){
+            else if (spil.erSpilletTabt()){
                      Toast.makeText(this, "Du har tabt", Toast.LENGTH_SHORT).show();
                      losscounter++;
                      knap3.setVisibility(View.VISIBLE);
                      textViewL.setText("L = "+losscounter);
-
             }
             tvBrugteBogstaver.setText(currentWord);
 
