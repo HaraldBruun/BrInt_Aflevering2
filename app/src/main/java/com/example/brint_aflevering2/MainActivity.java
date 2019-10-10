@@ -58,8 +58,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
             if (!spil.erSidsteBogstavKorrekt() && spil.getAntalForkerteBogstaver() < 6){
-
-                Toast.makeText(this,"Du har gættet forkert " + (spil.getAntalForkerteBogstaver())+ " gang(e)",Toast.LENGTH_SHORT).show();
+                if (spil.getAntalForkerteBogstaver()==1){
+                    Toast.makeText(this,"Du har gættet forkert " + (spil.getAntalForkerteBogstaver())+ " gang.",Toast.LENGTH_SHORT).show();
+                }
+                else if (spil.getAntalForkerteBogstaver() > 1){
+                    Toast.makeText(this,"Du har gættet forkert " + (spil.getAntalForkerteBogstaver())+ " gange.",Toast.LENGTH_SHORT).show();
+                }
             }
             else if (spil.erSidsteBogstavKorrekt() && !spil.erSpilletVundet()){
                 Toast.makeText(this,"Du gættede rigtigt: '" + gæt.getText().toString().toUpperCase() + "' indgår i ordet",Toast.LENGTH_SHORT).show();
