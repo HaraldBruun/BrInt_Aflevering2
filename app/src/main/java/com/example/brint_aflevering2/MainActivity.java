@@ -1,6 +1,8 @@
 package com.example.brint_aflevering2;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,8 +10,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -73,12 +73,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                  wincounter++;
                  knap3.setVisibility(View.VISIBLE);
                  textViewW.setText("W = " + wincounter);
+                 openWinActtivity();
              }
             else if (spil.erSpilletTabt()){
                      Toast.makeText(this, "Du har tabt", Toast.LENGTH_SHORT).show();
                      losscounter++;
                      knap3.setVisibility(View.VISIBLE);
                      textViewL.setText("L = "+losscounter);
+                     openLossActivity();
+
             }
             tvBrugteBogstaver.setText(currentWord);
 
@@ -94,11 +97,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         gæt.setText("");
     }
-
-
-
-
-
 
     public void imageViewChanger(){
         if (spil.getAntalForkerteBogstaver() == 0){
@@ -124,6 +122,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             imageView.setImageResource(R.drawable.forkert6);
         }
     }
+    public void openLossActivity(){
+        Intent intent = new Intent(this, LossActivity.class);
+        startActivity(intent);
+    }
+    public void openWinActtivity(){
+        Intent intent = new Intent(this,WinActivity.class);
+        startActivity(intent);
+    }
 
+    public int getWincounter() {
+        return wincounter;
+    }
+
+    public void setWincounter(int wincounter) {
+        this.wincounter = wincounter;
+    }
+
+    public int getLosscounter() {
+        return losscounter;
+    }
+
+    public void setLosscounter(int losscounter) {
+        this.losscounter = losscounter;
+    }
 }
 
