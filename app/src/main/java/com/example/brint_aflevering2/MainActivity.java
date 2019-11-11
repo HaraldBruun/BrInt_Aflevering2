@@ -20,7 +20,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button buttonGuess, buttonGetWord, buttonRestart, buttonDR, buttonRules;
     private TextView textViewHiddenWord, textViewUsedLetters,textViewWinCounter,textViewLossCounter;
     private ImageView imageViewGalge;
-    int wincounter, losscounter;
+    int wincounter = 0, losscounter = 0;
+    private boolean gameOver = false;
 
 
     @Override
@@ -55,49 +56,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if (v == buttonGuess) {
 
-            spil.gætBogstav(editTextGuess.getText().toString());
-            textViewHiddenWord.setText(spil.getSynligtOrd());
-            String currentWord = "";
-            imageViewChanger();
-            for (int i = 0; i < spil.getBrugteBogstaver().size(); i++) {
-                currentWord = currentWord + "  " + spil.getBrugteBogstaver().get(i);
-            }
+            guess();
 
-            if (editTextGuess.getText().toString().equals("")) {
-                Toast.makeText(this, "Indtast bogstav", Toast.LENGTH_SHORT).show();
-            } else if (!editTextGuess.getText().equals("")) {
-                if (!spil.erSidsteBogstavKorrekt() && spil.getAntalForkerteBogstaver() < 6) {
-                    if (spil.getAntalForkerteBogstaver() == 1) {
-                        Toast.makeText(this, "Du har gættet forkert " + (spil.getAntalForkerteBogstaver()) + " gang.", Toast.LENGTH_SHORT).show();
-                    } else if (spil.getAntalForkerteBogstaver() > 1) {
-                        Toast.makeText(this, "Du har gættet forkert " + (spil.getAntalForkerteBogstaver()) + " gange.", Toast.LENGTH_SHORT).show();
-                    }
-                } else if (spil.erSidsteBogstavKorrekt() && !spil.erSpilletVundet()) {
-                    Toast.makeText(this, "Du gættede rigtigt: '" + editTextGuess.getText().toString().toUpperCase() + "' indgår i ordet", Toast.LENGTH_SHORT).show();
-                } else if (spil.erSpilletVundet()) {
-                    Toast.makeText(this, "Du vandt", Toast.LENGTH_SHORT).show();
-                    wincounter++;
-                    buttonRestart.setVisibility(View.VISIBLE);
-                    textViewWinCounter.setText("W = " + wincounter);
-                    openWinActtivity();
-                } else if (spil.erSpilletTabt()) {
-                    Toast.makeText(this, "Du har tabt", Toast.LENGTH_SHORT).show();
-                    losscounter++;
-                    buttonRestart.setVisibility(View.VISIBLE);
-                    textViewLossCounter.setText("L = " + losscounter);
-                    openLossActivity();
-                }
             }
-            textViewUsedLetters.setText(currentWord);
-        }
         else if (v == buttonGetWord) {
             Toast.makeText(this, spil.getOrdet(), Toast.LENGTH_SHORT).show();
         } else if (v == buttonRestart) {
             spil.nulstil();
             imageViewChanger();
-            buttonRestart.setVisibility(View.INVISIBLE);
+            //buttonRestart.setVisibility(View.INVISIBLE);
             textViewHiddenWord.setText(spil.getSynligtOrd());
             textViewUsedLetters.setText("");
+            gameOver = false;
             Toast.makeText(this, "Du har genstartet spillet", Toast.LENGTH_SHORT).show();
         } else if (v == buttonDR){
             new AsyncTask() {
@@ -118,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     buttonDR.setText(result.toString());
                     textViewHiddenWord.setText(spil.getSynligtOrd());
                     textViewUsedLetters.setText("");
+                    gameOver = false;
                     imageViewChanger();
                     final Handler handler = new Handler ();
                     handler.postDelayed(new Runnable(){
@@ -129,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }.execute();
         } else if (v == buttonRules){
-            openRulesActtivity();
+            openRulesActivity();
         }
         editTextGuess.setText("");
     }
@@ -159,16 +130,67 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
     public void openLossActivity(){
-        Intent intent = new Intent(this, LossActivity.class);
-        startActivity(intent);
+        Intent lossIntent = new Intent(this, LossActivity.class);
+        lossIntent.putExtra("spil.getAntalForkerteBogstaver",spil.getAntalForkerteBogstaver());
+        lossIntent.putExtra("spil.getBrugteBogstaverSize",spil.getBrugteBogstaver().size());
+        lossIntent.putExtra("spil.getOrdet",spil.getOrdet());
+        lossIntent.putExtra("getLossCounter",losscounter);
+        startActivity(lossIntent);
     }
-    public void openWinActtivity(){
-        Intent intent = new Intent(this,WinActivity.class);
-        startActivity(intent);
+    public void openWinActivity(){
+        Intent winIntent = new Intent(this,WinActivity.class);
+        winIntent.putExtra("spil.getAntalForkerteBogstaver",spil.getAntalForkerteBogstaver());
+        winIntent.putExtra("spil.getBrugteBogstaverSize",spil.getBrugteBogstaver().size());
+        winIntent.putExtra("spil.getOrdet",spil.getOrdet());
+        winIntent.putExtra("getWinCounter",wincounter);
+        startActivity(winIntent);
     }
-    public void openRulesActtivity(){
-        Intent intent = new Intent(this,RulesActivity.class);
-        startActivity(intent);
+    public void openRulesActivity(){
+        Intent rulesIntent = new Intent(this,RulesActivity.class);
+        startActivity(rulesIntent);
     }
+    public void guess(){
+        spil.gætBogstav(editTextGuess.getText().toString());
+        textViewHiddenWord.setText(spil.getSynligtOrd());
+        String currentWord = "";
+        imageViewChanger();
+        for (int i = 0; i < spil.getBrugteBogstaver().size(); i++) {
+            currentWord = currentWord + "  " + spil.getBrugteBogstaver().get(i);
+        }
+
+        if (editTextGuess.getText().toString().equals("")) {
+            Toast.makeText(this, "Indtast bogstav", Toast.LENGTH_SHORT).show();
+        } else if (!editTextGuess.getText().equals("")) {
+            if (!spil.erSidsteBogstavKorrekt() && spil.getAntalForkerteBogstaver() < 6) {
+                if (spil.getAntalForkerteBogstaver() == 1) {
+                    Toast.makeText(this, "Du har gættet forkert " + (spil.getAntalForkerteBogstaver()) + " gang.", Toast.LENGTH_SHORT).show();
+                } else if (spil.getAntalForkerteBogstaver() > 1) {
+                    Toast.makeText(this, "Du har gættet forkert " + (spil.getAntalForkerteBogstaver()) + " gange.", Toast.LENGTH_SHORT).show();
+                }
+            } else if (spil.erSidsteBogstavKorrekt() && !spil.erSpilletVundet()) {
+                Toast.makeText(this, "Du gættede rigtigt: '" + editTextGuess.getText().toString().toUpperCase() + "' indgår i ordet", Toast.LENGTH_SHORT).show();
+            } else if (spil.erSpilletVundet()) {
+                Toast.makeText(this, "Du vandt", Toast.LENGTH_SHORT).show();
+                if (!gameOver) {
+                    wincounter++;
+                }
+                //buttonRestart.setVisibility(View.VISIBLE);
+                textViewWinCounter.setText("W = " + wincounter);
+                gameOver = true;
+                openWinActivity();
+            } else if (spil.erSpilletTabt()) {
+                Toast.makeText(this, "Du har tabt", Toast.LENGTH_SHORT).show();
+                if (!gameOver){
+                    losscounter++;
+                }
+                //buttonRestart.setVisibility(View.VISIBLE);
+                textViewLossCounter.setText("L = " + losscounter);
+                gameOver = true;
+                openLossActivity();
+            }
+        }
+        textViewUsedLetters.setText(currentWord);
+    }
+
 }
 

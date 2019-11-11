@@ -6,4 +6,44 @@
     android:layout_height="match_parent"
     tools:context=".LossActivity">
 
+    <TextView
+        android:id="@+id/textViewUnlucky"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Game over"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent"
+        android:textSize="42dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.183" />
+
+    <TextView
+        android:id="@+id/textViewLose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Du har tabt"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent"
+        android:textSize="42dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.296" />
+
+    <TextView
+        android:id="@+id/textViewLossGuesses"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Du brugte # gæt"
+        android:textSize="22dp"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.481" />
 </androidx.constraintlayout.widget.ConstraintLayout>

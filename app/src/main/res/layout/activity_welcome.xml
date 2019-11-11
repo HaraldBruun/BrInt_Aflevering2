@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:text="GALGELEG"
         android:textSize="36sp"
+        android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
