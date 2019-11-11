@@ -8,21 +8,31 @@
 
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/buttonRestart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="144dp"
         android:text="Restart"
-        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.91"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.004" />
+        app:layout_constraintVertical_bias="0.005" />
+
+    <Button
+        android:id="@+id/buttonRules"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Regler"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.034"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.102" />
 
     <TextView
-        android:id="@+id/textViewL"
+        android:id="@+id/textViewLossCounter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="L = 0"
@@ -34,7 +44,7 @@
         app:layout_constraintVertical_bias="0.046" />
 
     <TextView
-        android:id="@+id/textViewW"
+        android:id="@+id/textViewWinCounter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="W = 0"
@@ -46,7 +56,7 @@
         app:layout_constraintVertical_bias="0.019" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageViewGalge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -58,7 +68,7 @@
         app:srcCompat="@drawable/galge" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/buttonGuess"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Gæt"
@@ -70,7 +80,7 @@
         app:layout_constraintVertical_bias="0.442" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewGuessALetter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Gæt et bogstav!"
@@ -81,12 +91,13 @@
         app:layout_constraintVertical_bias="0.334" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/editTextGuess"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
         android:maxLength="1"
+        android:digits="abcdefghijklmnopqrstuvwxyzæøåABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -94,20 +105,33 @@
         app:layout_constraintVertical_bias="0.376" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/buttonGetWord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:text="Få ord"
+        android:text="Få svar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.103" />
+        app:layout_constraintVertical_bias="0.163" />
+
+    <Button
+        android:id="@+id/buttonDR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Hent DR-ord"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.076" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textViewHiddenWord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20dp"
@@ -118,7 +142,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textViewUsedLetters"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20dp"
