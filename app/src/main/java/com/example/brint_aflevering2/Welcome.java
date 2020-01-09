@@ -7,28 +7,31 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class Welcome extends AppCompatActivity implements View.OnClickListener{
+public class Welcome extends AppCompatActivity implements View.OnClickListener {
 
     Button knap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
         knap = findViewById(R.id.button);
-        knap.setOnClickListener(new View.OnClickListener(){
+        knap.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 openMainActivity();
             }
         });
     }
-    private void openMainActivity(){
+
+    private void openMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+
     @Override
-    public void onClick(View v){
+    public void onClick(View v) {
 
     }
 }

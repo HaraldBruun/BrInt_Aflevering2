@@ -210,7 +210,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textViewWinCounter.setText("W = " + winCounter);
         textViewLossCounter.setText("L = " + lossCounter);
     }
-
-
 }
-

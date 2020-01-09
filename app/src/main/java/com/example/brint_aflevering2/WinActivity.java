@@ -11,6 +11,7 @@ import android.widget.TextView;
 public class WinActivity extends AppCompatActivity {
 
     private TextView textViewGz, textViewWin, textViewWinGuesses;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,12 +28,14 @@ public class WinActivity extends AppCompatActivity {
         turnOnTextBlink();
         playWinSound();
     }
+
     public void playWinSound() {
         final MediaPlayer mp = MediaPlayer.create(this, R.raw.winningsound);
         mp.start();
     }
+
     // @author: Lånt fra Clockradio-projekt.
-    public void turnOnTextBlink(){
+    public void turnOnTextBlink() {
         Animation anim = new AlphaAnimation(0.0f, 1.0f);
         anim.setDuration(1);
         anim.setStartOffset(20);

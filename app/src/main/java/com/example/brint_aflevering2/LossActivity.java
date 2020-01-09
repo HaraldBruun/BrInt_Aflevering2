@@ -9,6 +9,7 @@ import android.widget.TextView;
 public class LossActivity extends AppCompatActivity {
 
     private TextView textViewUnlucky, textViewLose, textViewLossGuesses;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,12 +22,13 @@ public class LossActivity extends AppCompatActivity {
         textViewLose.setText(bundle.getString("spil.getOrdet"));
         textViewLose.setText("Du har tabt \n" + bundle.getInt("getLossCounter") + " gang(e)!");
         textViewLossGuesses.setText("Du brugte \n" + bundle.getInt("spil.getBrugteBogstaverSize") + " gæt. \n" +
-                "Det rigtige ord var: '" + bundle.getString("spil.getOrdet") +"'");
+                "Det rigtige ord var: '" + bundle.getString("spil.getOrdet") + "'");
 
         playLossSound();
     }
-    public void playLossSound(){
-        final MediaPlayer mp = MediaPlayer.create(this,R.raw.losingsound);
+
+    public void playLossSound() {
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.losingsound);
         mp.start();
 
     }
