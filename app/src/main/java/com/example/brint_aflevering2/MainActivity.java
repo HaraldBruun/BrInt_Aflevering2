@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button buttonGuess, buttonGetWord, buttonRestart, buttonDR, buttonRules;
     private TextView textViewHiddenWord, textViewUsedLetters,textViewWinCounter,textViewLossCounter;
     private ImageView imageViewGalge;
-    int wincounter = 0, losscounter = 0;
+    private int wincounter = 0, losscounter = 0;
     private boolean gameOver = false;
 
 
@@ -35,17 +36,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textViewWinCounter = findViewById(R.id.textViewWinCounter);
         textViewLossCounter = findViewById(R.id.textViewLossCounter);
         imageViewGalge = findViewById(R.id.imageViewGalge);
-
         buttonGuess = findViewById(R.id.buttonGuess);
-        buttonGuess.setOnClickListener(this);
         buttonGetWord = findViewById(R.id.buttonGetWord);
-        buttonGetWord.setOnClickListener(this);
         buttonRestart = findViewById(R.id.buttonRestart);
-        buttonRestart.setOnClickListener(this);
         buttonDR = findViewById(R.id.buttonDR);
-        buttonDR.setOnClickListener(this);
         buttonRules = findViewById(R.id.buttonRules);
+
+        buttonGuess.setOnClickListener(this);
+        buttonGetWord.setOnClickListener(this);
+        buttonRestart.setOnClickListener(this);
+        buttonDR.setOnClickListener(this);
         buttonRules.setOnClickListener(this);
+        //editTextGuess.setImeActionLabel("", KeyEvent.KEYCODE_ENTER);
 
         editTextGuess.setShowSoftInputOnFocus(false);
 
@@ -55,11 +57,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v == buttonGuess) {
-
             guess();
-
-            }
-        else if (v == buttonGetWord) {
+        } else if (v == buttonGetWord) {
             Toast.makeText(this, spil.getOrdet(), Toast.LENGTH_SHORT).show();
         } else if (v == buttonRestart) {
             spil.nulstil();
@@ -70,35 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             gameOver = false;
             Toast.makeText(this, "Du har genstartet spillet", Toast.LENGTH_SHORT).show();
         } else if (v == buttonDR){
-            new AsyncTask() {
-
-                @Override
-                protected Object doInBackground(Object... arg0) {
-                    try {
-                        spil.hentOrdFraDr();
-                        return "Success";
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        return "Fail: " + e;
-                    }
-                }
-
-                @Override
-                protected void onPostExecute(Object result) {
-                    buttonDR.setText(result.toString());
-                    textViewHiddenWord.setText(spil.getSynligtOrd());
-                    textViewUsedLetters.setText("");
-                    gameOver = false;
-                    imageViewChanger();
-                    final Handler handler = new Handler ();
-                    handler.postDelayed(new Runnable(){
-                        @Override
-                        public void run(){
-                            buttonDR.setText("nyt DR ord");
-                        }
-                    }, 5000);
-                }
-            }.execute();
+           getWordsFromDr();
         } else if (v == buttonRules){
             openRulesActivity();
         }
@@ -106,28 +77,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void imageViewChanger(){
-        if (spil.getAntalForkerteBogstaver() == 0){
-            imageViewGalge.setImageResource(R.drawable.galge);
-        }
-
-        if(spil.getAntalForkerteBogstaver() == 1){
-            imageViewGalge.setImageResource(R.drawable.forkert1);
-        }
-        if(spil.getAntalForkerteBogstaver() == 2){
-            imageViewGalge.setImageResource(R.drawable.forkert2);
-        }
-        if(spil.getAntalForkerteBogstaver() == 3){
-            imageViewGalge.setImageResource(R.drawable.forkert3);
-        }
-        if(spil.getAntalForkerteBogstaver() == 4){
-            imageViewGalge.setImageResource(R.drawable.forkert4);
-        }
-        if(spil.getAntalForkerteBogstaver() == 5){
-            imageViewGalge.setImageResource(R.drawable.forkert5);
-        }
-        if(spil.getAntalForkerteBogstaver() == 6){
-            imageViewGalge.setImageResource(R.drawable.forkert6);
-        }
+        if (spil.getAntalForkerteBogstaver() == 0){ imageViewGalge.setImageResource(R.drawable.galge); }
+        else if(spil.getAntalForkerteBogstaver() == 1){ imageViewGalge.setImageResource(R.drawable.forkert1); }
+        else if(spil.getAntalForkerteBogstaver() == 2){ imageViewGalge.setImageResource(R.drawable.forkert2); }
+        else if(spil.getAntalForkerteBogstaver() == 3){ imageViewGalge.setImageResource(R.drawable.forkert3); }
+        else if(spil.getAntalForkerteBogstaver() == 4){ imageViewGalge.setImageResource(R.drawable.forkert4); }
+        else if(spil.getAntalForkerteBogstaver() == 5){ imageViewGalge.setImageResource(R.drawable.forkert5); }
+        else if(spil.getAntalForkerteBogstaver() == 6){ imageViewGalge.setImageResource(R.drawable.forkert6); }
     }
     public void openLossActivity(){
         Intent lossIntent = new Intent(this, LossActivity.class);
@@ -191,6 +147,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         textViewUsedLetters.setText(currentWord);
     }
+
+    public void getWordsFromDr(){
+        new AsyncTask() {
+
+            @Override
+            protected Object doInBackground(Object... arg0) {
+                try {
+                    spil.hentOrdFraDr();
+                    return "Success";
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return "Fail: " + e;
+                }
+            }
+
+            @Override
+            protected void onPostExecute(Object result) {
+                buttonDR.setText(result.toString());
+                textViewHiddenWord.setText(spil.getSynligtOrd());
+                textViewUsedLetters.setText("");
+                gameOver = false;
+                imageViewChanger();
+                final Handler handler = new Handler ();
+                handler.postDelayed(new Runnable(){
+                    @Override
+                    public void run(){
+                        buttonDR.setText("nyt DR ord");
+                    }
+                }, 5000);
+            }
+        }.execute();
+    }
+
 
 }
 
