@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Galgelogik spil = new Galgelogik();
     private EditText editTextGuess;
     private Button buttonGuess, buttonGetWord, buttonRestart, buttonDR, buttonRules;
-    private TextView textViewHiddenWord, textViewUsedLetters,textViewWinCounter,textViewLossCounter;
+    private TextView textViewHiddenWord, textViewUsedLetters, textViewWinCounter, textViewLossCounter;
     private ImageView imageViewGalge;
     private int winCounter = 0, lossCounter = 0;
     private boolean gameOver = false;
@@ -55,8 +55,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         textViewHiddenWord.setText(spil.getSynligtOrd());
 
-        winCounter = getPreferences(winCounter).getInt("sWinCounter",winCounter);
-        lossCounter = getPreferences(lossCounter).getInt("sLossCounter",lossCounter);
+        winCounter = getPreferences(winCounter).getInt("sWinCounter", winCounter);
+        lossCounter = getPreferences(lossCounter).getInt("sLossCounter", lossCounter);
 
         updateCounters();
     }
@@ -75,9 +75,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             textViewUsedLetters.setText("");
             gameOver = false;
             Toast.makeText(this, "Du har genstartet spillet", Toast.LENGTH_SHORT).show();
-        } else if (v == buttonDR){
-           getWordsFromDr();
-        } else if (v == buttonRules){
+        } else if (v == buttonDR) {
+            getWordsFromDr();
+        } else if (v == buttonRules) {
             openRulesActivity();
         }
         editTextGuess.setText("");
@@ -92,38 +92,61 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textViewHiddenWord.setText(spil.getSynligtOrd());
         textViewUsedLetters.setText("");
         gameOver = false;
+        updateCounters();
     }
 
-    public void imageViewChanger(){
-        if (spil.getAntalForkerteBogstaver() == 0){ imageViewGalge.setImageResource(R.drawable.galge); }
-        else if(spil.getAntalForkerteBogstaver() == 1){ imageViewGalge.setImageResource(R.drawable.forkert1); }
-        else if(spil.getAntalForkerteBogstaver() == 2){ imageViewGalge.setImageResource(R.drawable.forkert2); }
-        else if(spil.getAntalForkerteBogstaver() == 3){ imageViewGalge.setImageResource(R.drawable.forkert3); }
-        else if(spil.getAntalForkerteBogstaver() == 4){ imageViewGalge.setImageResource(R.drawable.forkert4); }
-        else if(spil.getAntalForkerteBogstaver() == 5){ imageViewGalge.setImageResource(R.drawable.forkert5); }
-        else if(spil.getAntalForkerteBogstaver() == 6){ imageViewGalge.setImageResource(R.drawable.forkert6); }
+    public void imageViewChanger() {
+        if (spil.getAntalForkerteBogstaver() == 0) {
+            imageViewGalge.setImageResource(R.drawable.galge);
+        } else if (spil.getAntalForkerteBogstaver() == 1) {
+            imageViewGalge.setImageResource(R.drawable.forkert1);
+        } else if (spil.getAntalForkerteBogstaver() == 2) {
+            imageViewGalge.setImageResource(R.drawable.forkert2);
+        } else if (spil.getAntalForkerteBogstaver() == 3) {
+            imageViewGalge.setImageResource(R.drawable.forkert3);
+        } else if (spil.getAntalForkerteBogstaver() == 4) {
+            imageViewGalge.setImageResource(R.drawable.forkert4);
+        } else if (spil.getAntalForkerteBogstaver() == 5) {
+            imageViewGalge.setImageResource(R.drawable.forkert5);
+        } else if (spil.getAntalForkerteBogstaver() == 6) {
+            imageViewGalge.setImageResource(R.drawable.forkert6);
+        }
     }
-    public void openLossActivity(){
-        Intent lossIntent = new Intent(this, LossActivity.class);
-        lossIntent.putExtra("spil.getAntalForkerteBogstaver",spil.getAntalForkerteBogstaver());
-        lossIntent.putExtra("spil.getBrugteBogstaverSize",spil.getBrugteBogstaver().size());
-        lossIntent.putExtra("spil.getOrdet",spil.getOrdet());
-        lossIntent.putExtra("getLossCounter", lossCounter);
-        startActivity(lossIntent);
-    }
-    public void openWinActivity(){
-        Intent winIntent = new Intent(this,WinActivity.class);
-        winIntent.putExtra("spil.getAntalForkerteBogstaver",spil.getAntalForkerteBogstaver());
-        winIntent.putExtra("spil.getBrugteBogstaverSize",spil.getBrugteBogstaver().size());
-        winIntent.putExtra("spil.getOrdet",spil.getOrdet());
+
+    public void openWinActivity() {
+        Intent winIntent = new Intent(this, WinActivity.class);
+        winIntent.putExtra("spil.getAntalForkerteBogstaver", spil.getAntalForkerteBogstaver());
+        winIntent.putExtra("spil.getBrugteBogstaverSize", spil.getBrugteBogstaver().size());
+        winIntent.putExtra("spil.getOrdet", spil.getOrdet());
         winIntent.putExtra("getWinCounter", winCounter);
         startActivity(winIntent);
     }
-    public void openRulesActivity(){
-        Intent rulesIntent = new Intent(this,RulesActivity.class);
+
+    public void openLossActivity() {
+        Intent lossIntent = new Intent(this, LossActivity.class);
+        lossIntent.putExtra("spil.getAntalForkerteBogstaver", spil.getAntalForkerteBogstaver());
+        lossIntent.putExtra("spil.getBrugteBogstaverSize", spil.getBrugteBogstaver().size());
+        lossIntent.putExtra("spil.getOrdet", spil.getOrdet());
+        lossIntent.putExtra("getLossCounter", lossCounter);
+        startActivity(lossIntent);
+    }
+
+    public void openRulesActivity() {
+        Intent rulesIntent = new Intent(this, RulesActivity.class);
         startActivity(rulesIntent);
     }
-    public void guess(){
+
+    public void openFinishedActivity() {
+        Intent finishedIntent = new Intent(this, FinishedActivity.class);
+        finishedIntent.putExtra("spil.getAntalForkerteBogstaver", spil.getAntalForkerteBogstaver());
+        finishedIntent.putExtra("spil.getBrugteBogstaverSize", spil.getBrugteBogstaver().size());
+        finishedIntent.putExtra("spil.getOrdet", spil.getOrdet());
+        finishedIntent.putExtra("getLossCounter", lossCounter);
+        startActivity(finishedIntent);
+    }
+
+
+    public void guess() {
         spil.gætBogstav(editTextGuess.getText().toString());
         textViewHiddenWord.setText(spil.getSynligtOrd());
         String currentWord = "";
@@ -157,25 +180,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 gameOver = true;
                 openWinActivity();
             } else if (spil.erSpilletTabt()) {
-                Toast.makeText(this, "Du har tabt", Toast.LENGTH_SHORT).show();
-                if (!gameOver){
-                    lossCounter++;
-                    SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putInt("sLossCounter", lossCounter);
-                    editor.commit();
-                    Log.d(sharedPreferences.getAll().toString(), "123123");
-                }
-                //buttonRestart.setVisibility(View.VISIBLE);
-                textViewLossCounter.setText("L = " + lossCounter);
-                gameOver = true;
-                openLossActivity();
+                gameLost();
             }
         }
         textViewUsedLetters.setText(currentWord);
     }
 
-    public void getWordsFromDr(){
+    public void getWordsFromDr() {
         new AsyncTask() {
 
             @Override
@@ -196,16 +207,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 textViewUsedLetters.setText("");
                 gameOver = false;
                 imageViewChanger();
-                final Handler handler = new Handler ();
-                handler.postDelayed(new Runnable(){
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
                     @Override
-                    public void run(){
+                    public void run() {
                         buttonDR.setText("nyt DR ord");
                     }
                 }, 5000);
             }
         }.execute();
     }
+
+    public void gameLost() {
+        if (lossCounter >= 3) {
+            openFinishedActivity();
+            gameOver = true;
+        }
+        else if (lossCounter < 3) {
+            Toast.makeText(this, "Du har tabt", Toast.LENGTH_SHORT).show();
+            if (!gameOver) {
+                lossCounter++;
+                SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("sLossCounter", lossCounter);
+                editor.commit();
+                Log.d(sharedPreferences.getAll().toString(), "123123");
+            }
+            //buttonRestart.setVisibility(View.VISIBLE);
+            textViewLossCounter.setText("L = " + lossCounter);
+            gameOver = true;
+            openLossActivity();
+        }
+        updateCounters();
+    }
+
     public void updateCounters(){
         textViewWinCounter.setText("W = " + winCounter);
         textViewLossCounter.setText("L = " + lossCounter);

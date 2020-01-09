@@ -20,7 +20,7 @@ public class LossActivity extends AppCompatActivity {
         textViewLose = findViewById(R.id.textViewLose);
         textViewLossGuesses = findViewById(R.id.textViewLossGuesses);
         textViewLose.setText(bundle.getString("spil.getOrdet"));
-        textViewLose.setText("Du har tabt \n" + bundle.getInt("getLossCounter") + " gang(e)!");
+        textViewLose.setText("Du har tabt \n" + bundle.getInt("getLossCounter") + " ud af 3 gange");
         textViewLossGuesses.setText("Du brugte \n" + bundle.getInt("spil.getBrugteBogstaverSize") + " gæt. \n" +
                 "Det rigtige ord var: '" + bundle.getString("spil.getOrdet") + "'");
 

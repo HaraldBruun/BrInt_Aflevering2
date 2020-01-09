@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LossActivity">
+    tools:context=".FinishedActivity">
 
     <TextView
-        android:id="@+id/textViewUnlucky"
+        android:id="@+id/textViewUnlucky2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Du har tabt"
+        android:text="Game over"
         android:textAlignment="center"
         android:textColor="@color/colorAccent"
         android:textSize="42dp"
@@ -21,13 +21,13 @@
         app:layout_constraintVertical_bias="0.183" />
 
     <TextView
-        android:id="@+id/textViewLose"
+        android:id="@+id/textViewFinished"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Du har tabt"
         android:textAlignment="center"
         android:textColor="@color/colorAccent"
-        android:textSize="42dp"
+        android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,15 +35,15 @@
         app:layout_constraintVertical_bias="0.296" />
 
     <TextView
-        android:id="@+id/textViewLossGuesses"
+        android:id="@+id/textViewInfoScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Du brugte # gæt"
-        android:textSize="22dp"
+        android:text="Se highscores herunder!"
         android:textAlignment="center"
+        android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.481" />
+        app:layout_constraintVertical_bias="0.407" />
 </androidx.constraintlayout.widget.ConstraintLayout>
