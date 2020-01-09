@@ -17,7 +17,7 @@ public class FinishedActivity extends AppCompatActivity {
 
     };
 
-     private TextView textViewUnlucky2,textViewFinished, textViewInfoScore;
+     private TextView textViewUnlucky2,textViewFinished, textViewInfoScore, textViewHighscoreTest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +28,14 @@ public class FinishedActivity extends AppCompatActivity {
         textViewUnlucky2 = findViewById(R.id.textViewUnlucky2);
         textViewFinished = findViewById(R.id.textViewFinished);
         textViewInfoScore = findViewById(R.id.textViewInfoScore);
+        textViewHighscoreTest = findViewById(R.id.textViewHighscoreTest);
 
-        textViewFinished.setTextSize(14);
         textViewFinished.setText("Du har tabt. \n Du lod hangman dø " + bundle.getInt("getLossCounter") + " gange.");
 
+        // TODO: Nåede desværre ikke at implementere RecyclerView eller lign.
+
         //for (Highscore highscore : highscores){
-        //    textViewFinished.setText("Name: " + highscores.get(i).getName() + "Wins: " + highscores.get(i).getWinCounter()+ " Loss: " + highscores.get(i).getLossCounter());
+        //    textViewHighscoreTest.setText("Name: " + highscores.get(i).getName() + "Wins: " + highscores.get(i).getWinCounter()+ " Loss: " + highscores.get(i).getLossCounter());
         //}
         //textViewFinished.setText("Du har tabt \n" + bundle.getInt("getLossCounter") + " gang(e)!");
 
